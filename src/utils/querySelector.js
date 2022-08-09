@@ -1,7 +1,8 @@
-export const querySelector = (selector) => {
-  return document.querySelector(selector)
+const $ = (selector) => {
+  const $el = document.querySelectorAll(selector)
+  const isQuerySelector = $el.length === 1
+
+  return isQuerySelector ? $el[0] : $el
 }
 
-export const querySelectorAll = (selector) => {
-  return document.querySelectorAll(selector)
-}
+export default $

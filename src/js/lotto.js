@@ -1,12 +1,11 @@
-import { addEvent } from '../utils/addEvent.js'
-import { querySelector, querySelectorAll } from '../utils/querySelector.js'
-import { showLottoForm, updateLottoResultForm } from './lottoView.js'
-
-const LOTTO_PER_MONEY = 1000
+import { setState } from '../core/state.js'
+import $ from '../utils/querySelector.js'
+import addEvent from '../utils/addEvent.js'
+import CONSTANTS from '../utils/constants.js'
 
 const getLottoTicket = () => {
-  const $priceInput = querySelector('input[name=lottoPriceInput]')
-  return $priceInput.value / LOTTO_PER_MONEY
+  const totalPrice = $('input[name=totalPrice]').value
+  return totalPrice / CONSTANTS.LOTTO_TICKET_PRICE
 }
 
 const getLottoNumber = () => {
@@ -23,6 +22,7 @@ const getLottoNumber = () => {
   return lottoNumbers
 }
 
+// alert을 어떻게 해볼깡.. 여기서 어떻게  alert을 넘기지 흠
 const checkValidate = () => {
   if (!isPriceInteger()) {
     alert('로또 구입 금액을 1,000원 단위로 입력해 주세요.')
@@ -33,11 +33,11 @@ const checkValidate = () => {
 }
 
 const isPriceInteger = () => {
-  const $priceInput = querySelector('input[name=lottoPriceInput]')
-  const price = Number($priceInput.value)
+  const totalPrice = Number($('input[name=totalPrice]').value)
+  const isTotalPriceValid = totalPrice >= CONSTANTS.LOTTO_TICKET_PRICE
 
-  if (price >= LOTTO_PER_MONEY) {
-    return Number.isInteger(price / LOTTO_PER_MONEY)
+  if (isTotalPriceValid) {
+    return Number.isInteger(price / CONSTANTS.LOTTO_TICKET_PRICE)
   }
 }
 
@@ -48,20 +48,19 @@ const handleSubmitButton = (e) => {
     return
   }
 
-  const lottoTicket = getLottoTicket()
-
-  showLottoForm()
-  updateLottoResultForm(lottoTicket)
+  setState({
+    ticketCount: getLottoTicket(),
+  })
 }
 
 const handleToggle = (e) => {
   const isChecked = e.target.checked
-  const $lottoNumbers = querySelectorAll('span[name="lottoNumbers"]')
+  const $lottoNumber = $('span[name="lotto-number"]')
 
   if (isChecked) {
-    $lottoNumbers.forEach((el) => (el.style = 'visibility: visible'))
+    $lottoNumber.forEach((el) => el.classList.remove('hidden'))
   } else {
-    $lottoNumbers.forEach((el) => (el.style = 'visibility: hidden'))
+    $lottoNumber.forEach((el) => el.classList.add('hidden'))
   }
 }
 

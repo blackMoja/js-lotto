@@ -1,5 +1,6 @@
 import './lotto.js'
 
+// TODO index.js 변경
 const $showResultButton = document.querySelector('.open-result-modal-button')
 const $modalClose = document.querySelector('.modal-close')
 const $modal = document.querySelector('.modal')

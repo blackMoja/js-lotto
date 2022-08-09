@@ -1,5 +1,3 @@
-import render from '../js/lottoView.js'
-
 class Observer {
   constructor() {
     this.observers = []

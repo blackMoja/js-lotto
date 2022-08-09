@@ -1,10 +1,14 @@
 import observer from './observer.js'
-import render from '../js/lottoView.js'
+import render from '../js/render.js'
 
-const state = {}
+const state = {
+  gameStatus: '',
+  ticketCount: '',
+}
 
 const setState = (newState) => {
   Object.keys(state).forEach((key) => (state[key] = newState[key] ?? ''))
+
   observer.fire()
 }
 
