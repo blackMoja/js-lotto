@@ -37,7 +37,7 @@ const isPriceInteger = () => {
   const isTotalPriceValid = totalPrice >= CONSTANTS.LOTTO_TICKET_PRICE
 
   if (isTotalPriceValid) {
-    return Number.isInteger(price / CONSTANTS.LOTTO_TICKET_PRICE)
+    return Number.isInteger(totalPrice / CONSTANTS.LOTTO_TICKET_PRICE)
   }
 }
 
